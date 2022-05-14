@@ -2,43 +2,45 @@ let valueOfCurrent = "";
 let valueOfPrevious = "";
 let lastOperation = "";
 let haveDot = false;
-let result = null;
 let operationSign;
 const numberBtn = document.querySelectorAll(".number");
 const operatorBtn = document.querySelectorAll(".math");
-const acBtn = document.querySelectorAll(".delete-all");
-const delBtn = document.querySelectorAll(".delete-last");
-const equalsBtn = document.querySelectorAll(".equal");
+const acBtn = document.querySelector(".delete-all");
+const delBtn = document.querySelector(".delete-last");
+const equalsBtn = document.querySelector(".equal");
 let currentDisplayDiv = document.querySelector(".current-value");
 let previousDisplayDiv = document.querySelector(".previous-value");
-
+// set 0 to display
+window.onload = () => {
+  currentDisplayDiv.innerText = "0";
+};
+// get input from number buttons
 numberBtn.forEach((number) => {
   number.addEventListener("click", (e) => {
     appendNumber(e.target.innerText);
     updateDisplay();
   });
 });
-
+// get input from operation buttons
 operatorBtn.forEach((button) => {
   button.addEventListener("click", (e) => {
+    if (valueOfCurrent == "0" || valueOfCurrent == ".") return;
     if (valueOfCurrent === "") return;
-    if (valueOfPrevious !== "") {
-      doMath();
-    }
+    if (valueOfPrevious !== "") doMath();
     operationSign = e.target.innerText;
-    appendNumber(` ${operationSign} `);
     valueOfPrevious = valueOfCurrent;
     valueOfCurrent = "";
     updateDisplay();
   });
 });
 
-// the math
+// do the math
 function doMath() {
   const previous = parseFloat(valueOfPrevious);
   const current = parseFloat(valueOfCurrent);
   let compute;
   if (isNaN(previous) && isNaN(current)) return;
+  if (current == "0" && current == 0) return;
   switch (operationSign) {
     case "-":
       compute = previous - current;
@@ -46,20 +48,27 @@ function doMath() {
     case "+":
       compute = previous + current;
       break;
-    case "*":
+    case "x":
       compute = previous * current;
       break;
     case "÷":
+      if (current === "0") {
+        return;
+      }
       compute = previous / current;
       break;
     default:
       return;
   }
+  //   if (compute == "Infinity" || compute == "NaN") {
+  //     return;
+  //   } else {
   valueOfCurrent = compute;
   valueOfPrevious = "";
   operationSign = undefined;
+  //   }
 }
-
+// stitch the input together
 function appendNumber(number) {
   if (valueOfCurrent.includes(".") && number === ".") return;
   valueOfCurrent = valueOfCurrent.toString() + number.toString();
@@ -68,27 +77,33 @@ function appendNumber(number) {
 function resetView() {
   valueOfCurrent = "";
   valueOfPrevious = "";
-  operationSign = undefined;
+  operationSign = null;
+  onload();
 }
+// update the screen with values
 function updateDisplay() {
+  if (valueOfCurrent == "NaN") return;
   currentDisplayDiv.innerHTML = valueOfCurrent;
-  previousDisplayDiv.innerText = valueOfPrevious;
+  if (operationSign != null) {
+    previousDisplayDiv.innerText = `${valueOfPrevious} ${operationSign}`;
+  } else {
+    previousDisplayDiv.innerText = "";
+  }
 }
-equalsBtn.forEach((button) => {
-  button.addEventListener("click", (e) => {
-    doMath();
-    updateDisplay();
-  });
+// equals button
+equalsBtn.addEventListener("click", (e) => {
+  doMath();
+  updateDisplay();
 });
-acBtn.forEach((button) => {
-  button.addEventListener("click", (e) => {
-    resetView();
-    updateDisplay();
-  });
+// AC button
+acBtn.addEventListener("click", (e) => {
+  resetView();
+  updateDisplay();
+  window.onload();
 });
-delBtn.forEach((button) => {
-  button.addEventListener("click", (e) => {
-    valueOfCurrent = valueOfCurrent.toString().slice(0, -1);
-    updateDisplay();
-  });
+// DEL button
+delBtn.addEventListener("click", () => {
+  valueOfCurrent = valueOfCurrent.toString().slice(0, -1);
+  updateDisplay();
+  if (valueOfCurrent === "") window.onload();
 });
