@@ -24,8 +24,8 @@ numberBtn.forEach((number) => {
 // get input from operation buttons
 operatorBtn.forEach((button) => {
   button.addEventListener("click", (e) => {
-    updateDisplay();
     if (valueOfCurrent === "") return;
+    if (valueOfCurrent / 2 == 0 || valueOfCurrent === ".") return;
     if (valueOfPrevious !== "") {
       doMath();
     }
@@ -43,6 +43,11 @@ function doMath() {
   let compute;
   if (isNaN(previous) && isNaN(current)) return;
   if (current == "0" && current == 0) return;
+  if (
+    valueOfCurrent === "" /* || valueOfCurrent === "." */ ||
+    valueOfCurrent === "0"
+  )
+    return;
   switch (operationSign) {
     case "-":
       compute = previous - current;
@@ -90,7 +95,7 @@ function updateDisplay() {
 }
 // equals button
 equalsBtn.addEventListener("click", () => {
-  if (valueOfCurrent === "") return;
+  if (valueOfCurrent / 2 == 0 || valueOfCurrent === ".") return;
   doMath();
   updateDisplay();
 });
