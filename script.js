@@ -24,9 +24,11 @@ numberBtn.forEach((number) => {
 // get input from operation buttons
 operatorBtn.forEach((button) => {
   button.addEventListener("click", (e) => {
-    if (valueOfCurrent == "0" || valueOfCurrent == ".") return;
+    updateDisplay();
     if (valueOfCurrent === "") return;
-    if (valueOfPrevious !== "") doMath();
+    if (valueOfPrevious !== "") {
+      doMath();
+    }
     operationSign = e.target.innerText;
     valueOfPrevious = valueOfCurrent;
     valueOfCurrent = "";
@@ -60,9 +62,6 @@ function doMath() {
     default:
       return;
   }
-  //   if (compute == "Infinity" || compute == "NaN") {
-  //     return;
-  //   } else {
   valueOfCurrent = compute;
   valueOfPrevious = "";
   operationSign = undefined;
@@ -82,7 +81,6 @@ function resetView() {
 }
 // update the screen with values
 function updateDisplay() {
-  if (valueOfCurrent == "NaN") return;
   currentDisplayDiv.innerHTML = valueOfCurrent;
   if (operationSign != null) {
     previousDisplayDiv.innerText = `${valueOfPrevious} ${operationSign}`;
@@ -91,12 +89,13 @@ function updateDisplay() {
   }
 }
 // equals button
-equalsBtn.addEventListener("click", (e) => {
+equalsBtn.addEventListener("click", () => {
+  if (valueOfCurrent === "") return;
   doMath();
   updateDisplay();
 });
 // AC button
-acBtn.addEventListener("click", (e) => {
+acBtn.addEventListener("click", () => {
   resetView();
   updateDisplay();
   window.onload();
