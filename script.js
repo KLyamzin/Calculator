@@ -25,7 +25,6 @@ numberBtn.forEach((number) => {
 operatorBtn.forEach((button) => {
   button.addEventListener("click", (e) => {
     if (valueOfCurrent === "") return;
-    if (valueOfCurrent / 2 == 0 || valueOfCurrent === ".") return;
     if (valueOfPrevious !== "") {
       doMath();
     }
@@ -42,12 +41,11 @@ function doMath() {
   const current = parseFloat(valueOfCurrent);
   let compute;
   if (isNaN(previous) && isNaN(current)) return;
-  if (current == "0" && current == 0) return;
-  if (
-    valueOfCurrent === "" /* || valueOfCurrent === "." */ ||
-    valueOfCurrent === "0"
-  )
-    return;
+  if (valueOfCurrent === "" || valueOfCurrent === ".") return;
+  if (operationSign === "÷") {
+    if (valueOfCurrent / 2 == 0) return;
+  }
+
   switch (operationSign) {
     case "-":
       compute = previous - current;
@@ -95,7 +93,7 @@ function updateDisplay() {
 }
 // equals button
 equalsBtn.addEventListener("click", () => {
-  if (valueOfCurrent / 2 == 0 || valueOfCurrent === ".") return;
+  if (/* valueOfCurrent / 2 == 0 ||  */ valueOfCurrent === ".") return;
   doMath();
   updateDisplay();
 });
