@@ -65,15 +65,18 @@ function doMath() {
     default:
       return;
   }
-  valueOfCurrent = compute;
+
+  valueOfCurrent = Math.round(compute * Math.pow(10, 5)) / Math.pow(10, 5);
   valueOfPrevious = "";
   operationSign = undefined;
   //   }
 }
 // stitch the input together
 function appendNumber(number) {
-  if (valueOfCurrent.includes(".") && number === ".") return;
-  valueOfCurrent = valueOfCurrent.toString() + number.toString();
+  if (valueOfCurrent.length <= 14) {
+    if (valueOfCurrent.includes(".") && number === ".") return;
+    valueOfCurrent = valueOfCurrent.toString() + number.toString();
+  }
 }
 //clear the div displays
 function resetView() {
@@ -84,7 +87,16 @@ function resetView() {
 }
 // update the screen with values
 function updateDisplay() {
+  // if (valueOfCurrent.length <= 14) {
   currentDisplayDiv.innerHTML = valueOfCurrent;
+  // }
+  // if (valueOfCurrent.length >= 14) {
+  //   currentDisplayDiv = valueOfCurrent(
+  //     Math.round(valueOfCurrent * 10000) / 10000
+  //   );
+  // }
+  // valueOfCurrent = Math.round(valueOfCurrent * 10000) / 10000;
+  // currentDisplayDiv.innerHTML = valueOfCurrent;
   if (operationSign != null) {
     previousDisplayDiv.innerText = `${valueOfPrevious} ${operationSign}`;
   } else {
@@ -93,7 +105,7 @@ function updateDisplay() {
 }
 // equals button
 equalsBtn.addEventListener("click", () => {
-  if (/* valueOfCurrent / 2 == 0 ||  */ valueOfCurrent === ".") return;
+  if (valueOfCurrent === ".") return;
   doMath();
   updateDisplay();
 });
