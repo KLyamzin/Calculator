@@ -10,10 +10,36 @@ const delBtn = document.querySelector(".delete-last");
 const equalsBtn = document.querySelector(".equal");
 let currentDisplayDiv = document.querySelector(".current-value");
 let previousDisplayDiv = document.querySelector(".previous-value");
-// set 0 to display
+// const numberDataKey = document.querySelectorAll(".number");
+// const operatorDataKey = document.querySelectorAll("[data-operator]");
+
 window.onload = () => {
   currentDisplayDiv.innerText = "0";
 };
+// integrating keyboard input
+window.addEventListener("keypress", (e) => {
+  // allow only numbers and dot
+  if (e.key / 2 || e.key === "0" || e.key === ".") {
+    appendNumber(e.key);
+    updateDisplay();
+  }
+  // sign symbols
+  if (e.key === "+" || e.key === "-" || e.key === "*" || e.key === "/") {
+    let keyValue = e.key;
+    if (keyValue === "/") {
+      keyValue = "÷"; //converting '/' symbol to '÷'
+    }
+    if (valueOfCurrent === "") return;
+    if (valueOfPrevious !== "") {
+      doMath();
+    }
+    operationSign = keyValue;
+    valueOfPrevious = valueOfCurrent;
+    valueOfCurrent = "";
+    updateDisplay();
+  }
+});
+
 // get input from number buttons
 numberBtn.forEach((number) => {
   number.addEventListener("click", (e) => {
@@ -87,16 +113,7 @@ function resetView() {
 }
 // update the screen with values
 function updateDisplay() {
-  // if (valueOfCurrent.length <= 14) {
   currentDisplayDiv.innerHTML = valueOfCurrent;
-  // }
-  // if (valueOfCurrent.length >= 14) {
-  //   currentDisplayDiv = valueOfCurrent(
-  //     Math.round(valueOfCurrent * 10000) / 10000
-  //   );
-  // }
-  // valueOfCurrent = Math.round(valueOfCurrent * 10000) / 10000;
-  // currentDisplayDiv.innerHTML = valueOfCurrent;
   if (operationSign != null) {
     previousDisplayDiv.innerText = `${valueOfPrevious} ${operationSign}`;
   } else {
