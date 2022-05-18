@@ -126,5 +126,23 @@ transition: transform 0.2s ease-in-out;
         grid-template-columns: repeat(4, 80px);
         grid-template-rows: minmax(120px, auto) repeat(5, 80px);
     }
-
+    .container > button{ 
+        font-size: 1.8rem;
+        text-align: center;
+        color: black;
+    }
+    .screen{
+        /* display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+        align-items: flex-end;
+        padding: 10px;
+        grid-column: 1 / -1;
+        background: #303943;
+        color: #C0DAAD; */
+        font-size: 1.8rem;
+        /* border-radius: 8px 8px;
+        box-shadow: inset 5px 5px 5px 0px #1E252B;
+        margin-bottom:5px; */
+    }
 }
