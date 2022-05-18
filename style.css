@@ -43,7 +43,7 @@ transition: transform 0.2s ease-in-out;
 }
 
 .background-image{
-    background-image: url("Optimized-pexels-jess-bailey-designs-1764436.jpeg");
+    background-image: url("media/Optimized-pexels-jess-bailey-designs-1764436.jpeg");
     /* background-repeat: no-repeat; */
     background-size: cover;
 /* from stackoverflow */
