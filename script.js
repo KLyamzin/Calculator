@@ -10,8 +10,6 @@ const delBtn = document.querySelector(".delete-last");
 const equalsBtn = document.querySelector(".equal");
 let currentDisplayDiv = document.querySelector(".current-value");
 let previousDisplayDiv = document.querySelector(".previous-value");
-// const numberDataKey = document.querySelectorAll(".number");
-// const operatorDataKey = document.querySelectorAll("[data-operator]");
 
 window.onload = () => {
   currentDisplayDiv.innerText = "0";
