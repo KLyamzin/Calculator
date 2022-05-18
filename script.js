@@ -1,6 +1,5 @@
 let valueOfCurrent = "";
 let valueOfPrevious = "";
-let lastOperation = "";
 let haveDot = false;
 let operationSign;
 const numberBtn = document.querySelectorAll(".number");
@@ -96,7 +95,7 @@ function doMath() {
       break;
     case "÷":
       if (current === "0") {
-        return console.error("doMath");
+        return;
       }
       compute = previous / current;
       break;
@@ -146,7 +145,7 @@ function deleteLast() {
 }
 //operation sign
 function operator() {
-  if (valueOfCurrent === "") return console.log("operator()");
+  if (valueOfCurrent === "") return;
   if (valueOfPrevious !== "") doMath();
   valueOfPrevious = valueOfCurrent;
   valueOfCurrent = "";
