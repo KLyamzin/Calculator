@@ -16,30 +16,50 @@ let previousDisplayDiv = document.querySelector(".previous-value");
 window.onload = () => {
   currentDisplayDiv.innerText = "0";
 };
-// integrating keyboard input
-window.addEventListener("keypress", (e) => {
+// Integrating keyboard input
+window.addEventListener("keydown", (e) => {
   // allow only numbers and dot
   if (e.key / 2 || e.key === "0" || e.key === ".") {
     appendNumber(e.key);
     updateDisplay();
   }
-  // sign symbols
-  if (e.key === "+" || e.key === "-" || e.key === "*" || e.key === "/") {
+  // operation sign symbols
+  else if (e.key === "+" || e.key === "-" || e.key === "*" || e.key === "/") {
     let keyValue = e.key;
-    if (keyValue === "/") {
+    if (keyValue == "/") {
       keyValue = "÷"; //converting '/' symbol to '÷'
+    } else if (keyValue == "*") {
+      keyValue = "x"; //converting '*' symbol to 'x'
     }
-    if (valueOfCurrent === "") return;
-    if (valueOfPrevious !== "") {
-      doMath();
-    }
+    operator();
     operationSign = keyValue;
-    valueOfPrevious = valueOfCurrent;
-    valueOfCurrent = "";
+    updateDisplay();
+  } else if (e.key === "=" || e.key === "Enter") {
+    equal();
+    // updateDisplay();
+  } else if (e.key === "Backspace") {
+    deleteLast();
     updateDisplay();
   }
 });
+// Equal button
+equalsBtn.addEventListener("click", () => {
+  equal();
+  // updateDisplay();
+});
 
+// AC button
+acBtn.addEventListener("click", () => {
+  resetView();
+  updateDisplay();
+  window.onload();
+});
+
+// DEL button
+delBtn.addEventListener("click", () => {
+  deleteLast();
+  updateDisplay();
+});
 // get input from number buttons
 numberBtn.forEach((number) => {
   number.addEventListener("click", (e) => {
@@ -50,17 +70,11 @@ numberBtn.forEach((number) => {
 // get input from operation buttons
 operatorBtn.forEach((button) => {
   button.addEventListener("click", (e) => {
-    if (valueOfCurrent === "") return;
-    if (valueOfPrevious !== "") {
-      doMath();
-    }
+    operator();
     operationSign = e.target.innerText;
-    valueOfPrevious = valueOfCurrent;
-    valueOfCurrent = "";
     updateDisplay();
   });
 });
-
 // do the math
 function doMath() {
   const previous = parseFloat(valueOfPrevious);
@@ -84,7 +98,7 @@ function doMath() {
       break;
     case "÷":
       if (current === "0") {
-        return;
+        return console.error("doMath");
       }
       compute = previous / current;
       break;
@@ -121,20 +135,21 @@ function updateDisplay() {
   }
 }
 // equals button
-equalsBtn.addEventListener("click", () => {
+function equal() {
   if (valueOfCurrent === ".") return;
   doMath();
   updateDisplay();
-});
-// AC button
-acBtn.addEventListener("click", () => {
-  resetView();
-  updateDisplay();
-  window.onload();
-});
-// DEL button
-delBtn.addEventListener("click", () => {
+}
+// delete last character
+function deleteLast() {
   valueOfCurrent = valueOfCurrent.toString().slice(0, -1);
   updateDisplay();
   if (valueOfCurrent === "") window.onload();
-});
+}
+//operation sign
+function operator() {
+  if (valueOfCurrent === "") return console.log("operator()");
+  if (valueOfPrevious !== "") doMath();
+  valueOfPrevious = valueOfCurrent;
+  valueOfCurrent = "";
+}
