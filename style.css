@@ -14,6 +14,7 @@ body{
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 .header,
 .footer{
@@ -44,7 +45,6 @@ transition: transform 0.2s ease-in-out;
 
 .background-image{
     background-image: url("media/Optimized-pexels-jess-bailey-designs-1764436.jpeg");
-    /* background-repeat: no-repeat; */
     background-size: cover;
 /* from stackoverflow */
     -webkit-filter: blur(2px);
@@ -120,4 +120,11 @@ transition: transform 0.2s ease-in-out;
 .del:hover{
     background-color: #F9C74F;
     color: #F94144;
+}
+@media screen and (max-width:465px){
+    .container{
+        grid-template-columns: repeat(4, 80px);
+        grid-template-rows: minmax(120px, auto) repeat(5, 80px);
+    }
+
 }
