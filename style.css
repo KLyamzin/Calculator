@@ -8,16 +8,68 @@ body{
     padding:0;
     margin:0;
 }
-
-.container{
+.main{
     min-height: 100vh;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.header,
+.footer{
+    background-color: #43AA8B;
+    margin: 0;
+    padding: 0.5em;
+    width: 100%;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: white;
+    letter-spacing: 0.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1em
+}
+.footer{
+    height: 3rem;
+}
+.social-logo{
+height: 25px;
+transition: transform 0.2s ease-in-out;
+}
+.social-logo:hover{
+    transform: scale(1.2);
+}
+
+.background-image{
+    background-image: url("Optimized-pexels-jess-bailey-designs-1764436.jpeg");
+    /* background-repeat: no-repeat; */
+    background-size: cover;
+/* from stackoverflow */
+    -webkit-filter: blur(2px);
+    -moz-filter: blur(2px);
+    -o-filter: blur(2px);
+    -ms-filter: blur(2px);
+    filter: blur(2px);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+.container{
     display: grid;
     justify-content: center;
     align-content: center;
     grid-template-columns: repeat(4, 100px);
     grid-template-rows: minmax(120px, auto) repeat(5, 100px);
+    border: 12px solid #596169;
+    border-radius: 10px;
+    gap: 2px;
+    background-color: #596169;
 }
-
 .span-two{
     grid-column:span 2;
 }
@@ -32,10 +84,11 @@ body{
     color: #C0DAAD;
     font-size: 2.5rem;
     border-radius: 8px 8px;
+    box-shadow: inset 5px 5px 5px 0px #1E252B;
+    margin-bottom:5px;
 }
 .previous-value{
     font-size: 1.8rem;
-    
 }
 .container > button{
     cursor: pointer;
@@ -43,8 +96,8 @@ body{
     border: 2px solid #303943;
     border-radius: 8px 8px;
     outline: none;
+    box-shadow: 2px 1px 3px #1e252bbc;
 }
-
 .number{
     background-color: #90BE6D;
 }
