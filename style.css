@@ -135,6 +135,6 @@ transition: transform 0.2s ease-in-out;
         font-size: 1.8rem;
     }
 .del{
-    padding: 5px;
+    padding: 0;
     font-size: 1.6rem;
 }}
