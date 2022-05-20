@@ -1,0 +1,23 @@
+{
+  "name": "calculator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KLyamzin/Calculator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KLyamzin/Calculator/issues"
+  },
+  "homepage": "https://github.com/KLyamzin/Calculator#readme",
+  "devDependencies": {
+    "jest": "^28.1.0"
+  }
+}

@@ -150,3 +150,5 @@ function operator() {
   valueOfPrevious = valueOfCurrent;
   valueOfCurrent = "";
 }
+
+module.exports = doMath();
